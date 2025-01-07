@@ -4,7 +4,7 @@
 
 package heitor.margay.sistema.venda;
 
-import visao.MainFrame;
+import heitor.margay.sistema.venda.forms.MainFrame;
 
 /**
  *
