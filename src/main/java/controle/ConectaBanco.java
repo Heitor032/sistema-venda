@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package heitor.margay.sistema.venda.dao;
+package controle;
 
 
 import java.sql.*;
@@ -46,7 +46,7 @@ public class ConectaBanco {
     public void desconecta() {
         try {
             conn.close();
-            JOptionPane.showMessageDialog(null, "desconectado com sucesso!!!!");
+           // JOptionPane.showMessageDialog(null, "desconectado com sucesso!!!!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão!\n Erro:" + ex.getMessage());
         }
