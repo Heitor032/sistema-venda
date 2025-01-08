@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package heitor.margay.sistema.venda.forms;
+package visao;
 
-import heitor.margay.sistema.venda.dao.ConectaBanco;
-import heitor.margay.sistema.venda.dao.ModeloTabela;
+import controle.ConectaBanco;
+import controle.ModeloTabela;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
