@@ -9,9 +9,6 @@ import heitor.margay.sistema.venda.dao.ModeloTabela;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
@@ -476,7 +473,7 @@ public class FrmEstado extends javax.swing.JFrame {
                 dados.add(obj);
             } while (conecta.rs.next());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao preecher o ArrayList!\nERRO:" + ex);
+        //    JOptionPane.showMessageDialog(rootPane, "Erro ao preecher o ArrayList!\nERRO:" + ex);
         }
 
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
