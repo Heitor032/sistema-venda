@@ -18,16 +18,19 @@ import modelo.ModeloCidade;
  */
 public class FrmCidade extends javax.swing.JFrame {
 
-    
     private boolean estadoVazio;
 
     ConectaBanco connEstado = new ConectaBanco();
+    ConectaBanco connCidade = new ConectaBanco();
+    ModeloCidade mod = new ModeloCidade();
+    ControleCidade control = new ControleCidade();
     private int id_estado;
 
     public FrmCidade() {
         initComponents();
         this.estadoVazio = false;
         connEstado.conexao();
+        connCidade.conexao();
         connEstado.executaSQL("select * from TB_estado order by nome_estado");
         jComboBoxEstado.removeAllItems();
         try {
@@ -108,6 +111,11 @@ public class FrmCidade extends javax.swing.JFrame {
         });
 
         jButtonAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/delete.png"))); // NOI18N
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -117,12 +125,32 @@ public class FrmCidade extends javax.swing.JFrame {
         });
 
         jButtonPrimeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/primeiro.png"))); // NOI18N
+        jButtonPrimeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrimeiroActionPerformed(evt);
+            }
+        });
 
         jButtonUltimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ultimo.png"))); // NOI18N
+        jButtonUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUltimoActionPerformed(evt);
+            }
+        });
 
         jButtonAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/anterior.png"))); // NOI18N
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
 
         jButtonProximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/proximo.png"))); // NOI18N
+        jButtonProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProximoActionPerformed(evt);
+            }
+        });
 
         jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sair.png"))); // NOI18N
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
@@ -265,27 +293,107 @@ public class FrmCidade extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            ModeloCidade mod = new ModeloCidade();
+
             mod.setNome(jTextFieldNome.getText());
-            connEstado.executaSQL("select * from TB_estado where nome_estado='" + jComboBoxEstado.getSelectedItem()+"'");
+            connEstado.executaSQL("select * from TB_estado where nome_estado='" + jComboBoxEstado.getSelectedItem() + "'");
             connEstado.rs.first();
             mod.setCod_estado(connEstado.rs.getInt("id_estado"));
             ControleCidade control = new ControleCidade();
             control.InserirCidade(mod);
         } catch (SQLException ex) {
-            Logger.getLogger(FrmCidade.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "erro ao Salvar!/n ERRO:" + ex);
         }
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
+        try {
+            mod.setCod(Integer.parseInt(jTextFieldCod.getText()));
+            mod.setNome(jTextFieldNome.getText());
+            mod.setCod_estado(connCidade.rs.getInt("id_estado"));
+            control.excluiCidade(mod);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao excluir o registro!/n ERRO:" + ex);
+        }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButtonSairActionPerformed
+
+    private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
+        try {
+            connCidade.executaSQL("select * from tb_cidade order by id_cidade");
+            connCidade.rs.first();
+            jTextFieldCod.setText(String.valueOf(connCidade.rs.getInt("id_cidade")));
+            jTextFieldNome.setText(connCidade.rs.getString("nome_cidade"));
+            connEstado.executaSQL("select * from tb_estado where id_estado=" + connCidade.rs.getInt("id_estado"));
+            connEstado.rs.first();
+            jComboBoxEstado.setSelectedItem(connEstado.rs.getString("nome_estado"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o primeiro registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonPrimeiroActionPerformed
+
+    private void jButtonUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimoActionPerformed
+        // TODO add your handling code here:
+        try {
+            connCidade.executaSQL("select * from tb_cidade order by id_cidade");
+            connCidade.rs.last();
+            jTextFieldCod.setText(String.valueOf(connCidade.rs.getInt("id_cidade")));
+            jTextFieldNome.setText(connCidade.rs.getString("nome_cidade"));
+            connEstado.executaSQL("select * from tb_estado where id_estado=" + connCidade.rs.getInt("id_estado"));
+            connEstado.rs.first();
+            jComboBoxEstado.setSelectedItem(connEstado.rs.getString("nome_estado"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o ultimo registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonUltimoActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        // TODO add your handling code here:
+        try {
+            // connCidade.executaSQL("select * from tb_cidade order by id_cidade");
+            connCidade.rs.previous();
+            jTextFieldCod.setText(String.valueOf(connCidade.rs.getInt("id_cidade")));
+            jTextFieldNome.setText(connCidade.rs.getString("nome_cidade"));
+            connEstado.executaSQL("select * from tb_estado where id_estado=" + connCidade.rs.getInt("id_estado"));
+            connEstado.rs.first();
+            jComboBoxEstado.setSelectedItem(connEstado.rs.getString("nome_estado"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o  registro anterior !/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximoActionPerformed
+        // TODO add your handling code here:
+        try {
+            // connCidade.executaSQL("select * from tb_cidade order by id_cidade");
+            connCidade.rs.next();
+            jTextFieldCod.setText(String.valueOf(connCidade.rs.getInt("id_cidade")));
+            jTextFieldNome.setText(connCidade.rs.getString("nome_cidade"));
+            connEstado.executaSQL("select * from tb_estado where id_estado=" + connCidade.rs.getInt("id_estado"));
+            connEstado.rs.first();
+            jComboBoxEstado.setSelectedItem(connEstado.rs.getString("nome_estado"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o proximo registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonProximoActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        // TODO add your handling code here:
+
+        try {
+            mod.setCod(Integer.parseInt(jTextFieldCod.getText()));
+            mod.setNome(jTextFieldNome.getText());
+            mod.setCod_estado(connCidade.rs.getInt("id_estado"));
+            control.alterarCidade(mod);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao alterar o registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     /**
      * @param args the command line arguments
