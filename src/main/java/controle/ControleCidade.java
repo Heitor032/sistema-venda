@@ -44,13 +44,15 @@ public class ControleCidade {
     }
 
     public void alterarCidade(ModeloCidade mod) {
+        connCidade.conexao();
+        //JOptionPane.showMessageDialog(null, mod.getCod_estado());
         try {
-            PreparedStatement pst = connCidade.conn.prepareStatement("update  tb_cidade set nome_cidade = ?,set id_estado= ? where id_cidade=?");
+            PreparedStatement pst = connCidade.conn.prepareStatement("update  tb_cidade set nome_cidade = ?, id_estado= ? where id_cidade=?");
             pst.setString(1, mod.getNome());
             pst.setInt(2, mod.getCod_estado());
             pst.setInt(3, mod.getCod());
             pst.execute();
-            JOptionPane.showMessageDialog(null, "dados altrados  com sucesso");
+            JOptionPane.showMessageDialog(null, "dados alterados  com sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro ao alterar os dados. /n ERRO:" + ex);
         }

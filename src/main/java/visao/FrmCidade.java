@@ -6,10 +6,11 @@ package visao;
 
 import controle.ConectaBanco;
 import controle.ControleCidade;
+import controle.ModeloTabela;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import modelo.ModeloCidade;
 
 /**
@@ -31,6 +32,7 @@ public class FrmCidade extends javax.swing.JFrame {
         this.estadoVazio = false;
         connEstado.conexao();
         connCidade.conexao();
+        preecherTabela(" select * from tb_cidade inner join tb_estado on tb_cidade.id_estado = tb_estado.id_estado");
         connEstado.executaSQL("select * from TB_estado order by nome_estado");
         jComboBoxEstado.removeAllItems();
         try {
@@ -78,7 +80,7 @@ public class FrmCidade extends javax.swing.JFrame {
         jButtonProximo = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabela = new javax.swing.JTable();
         jButtonCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -87,6 +89,10 @@ public class FrmCidade extends javax.swing.JFrame {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTextFieldCod.setEnabled(false);
+
+        jTextFieldNome.setEnabled(false);
 
         jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -102,8 +108,14 @@ public class FrmCidade extends javax.swing.JFrame {
         jLabel4.setText("Estado:");
 
         jbuttonAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
+        jbuttonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbuttonAdicionarActionPerformed(evt);
+            }
+        });
 
         jButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar.png"))); // NOI18N
+        jButtonSalvar.setEnabled(false);
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
@@ -111,6 +123,7 @@ public class FrmCidade extends javax.swing.JFrame {
         });
 
         jButtonAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+        jButtonAlterar.setEnabled(false);
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAlterarActionPerformed(evt);
@@ -118,6 +131,7 @@ public class FrmCidade extends javax.swing.JFrame {
         });
 
         jButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/delete.png"))); // NOI18N
+        jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
@@ -159,7 +173,7 @@ public class FrmCidade extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -170,9 +184,15 @@ public class FrmCidade extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabela);
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botao-cancelar.png"))); // NOI18N
+        jButtonCancelar.setToolTipText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -300,6 +320,15 @@ public class FrmCidade extends javax.swing.JFrame {
             mod.setCod_estado(connEstado.rs.getInt("id_estado"));
             ControleCidade control = new ControleCidade();
             control.InserirCidade(mod);
+            preecherTabela(" select * from tb_cidade inner join tb_estado on tb_cidade.id_estado = tb_estado.id_estado");
+            jTextFieldNome.setEnabled(true);
+            jButtonAlterar.setEnabled(false);
+            jButtonDelete.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+            jbuttonAdicionar.setEnabled(true);
+            jTextFieldNome.setText("");
+            jTextFieldCod.setText("");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "erro ao Salvar!/n ERRO:" + ex);
         }
@@ -308,11 +337,21 @@ public class FrmCidade extends javax.swing.JFrame {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
+
         try {
             mod.setCod(Integer.parseInt(jTextFieldCod.getText()));
             mod.setNome(jTextFieldNome.getText());
             mod.setCod_estado(connCidade.rs.getInt("id_estado"));
             control.excluiCidade(mod);
+            preecherTabela(" select * from tb_cidade inner join tb_estado on tb_cidade.id_estado = tb_estado.id_estado");
+            jTextFieldNome.setEnabled(true);
+            jButtonAlterar.setEnabled(false);
+            jButtonDelete.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+            jbuttonAdicionar.setEnabled(true);
+            jTextFieldNome.setText("");
+            jTextFieldCod.setText("");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "erro ao excluir o registro!/n ERRO:" + ex);
         }
@@ -324,6 +363,11 @@ public class FrmCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
+        jButtonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);
         try {
             connCidade.executaSQL("select * from tb_cidade order by id_cidade");
             connCidade.rs.first();
@@ -338,7 +382,11 @@ public class FrmCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPrimeiroActionPerformed
 
     private void jButtonUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimoActionPerformed
-        // TODO add your handling code here:
+        jButtonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);// TODO add your handling code here:
         try {
             connCidade.executaSQL("select * from tb_cidade order by id_cidade");
             connCidade.rs.last();
@@ -353,7 +401,11 @@ public class FrmCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonUltimoActionPerformed
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
-        // TODO add your handling code here:
+        jButtonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);// TODO add your handling code here:
         try {
             // connCidade.executaSQL("select * from tb_cidade order by id_cidade");
             connCidade.rs.previous();
@@ -368,7 +420,11 @@ public class FrmCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximoActionPerformed
-        // TODO add your handling code here:
+        jButtonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);// TODO add your handling code here:
         try {
             // connCidade.executaSQL("select * from tb_cidade order by id_cidade");
             connCidade.rs.next();
@@ -388,12 +444,79 @@ public class FrmCidade extends javax.swing.JFrame {
         try {
             mod.setCod(Integer.parseInt(jTextFieldCod.getText()));
             mod.setNome(jTextFieldNome.getText());
+            connCidade.executaSQL("select * from TB_estado where nome_estado ='" + jComboBoxEstado.getSelectedItem() + "'");
+            connCidade.rs.first();
             mod.setCod_estado(connCidade.rs.getInt("id_estado"));
             control.alterarCidade(mod);
+            preecherTabela(" select * from tb_cidade inner join tb_estado on tb_cidade.id_estado = tb_estado.id_estado");
+            jTextFieldNome.setEnabled(true);
+            jButtonAlterar.setEnabled(false);
+            jButtonDelete.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+            jbuttonAdicionar.setEnabled(true);
+            jTextFieldNome.setText("");
+            jTextFieldCod.setText("");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "erro ao alterar o registro!/n ERRO:" + ex);
         }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jbuttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonAdicionarActionPerformed
+        // TODO add your handling code here:
+        jTextFieldNome.setEnabled(true);
+        jButtonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonSalvar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setText("");
+        jTextFieldCod.setText("");
+    }//GEN-LAST:event_jbuttonAdicionarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        jTextFieldNome.setEnabled(true);
+        jButtonAlterar.setEnabled(false);
+        jButtonDelete.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
+        jButtonSalvar.setEnabled(false);
+        jbuttonAdicionar.setEnabled(true);
+        jTextFieldNome.setText("");
+        jTextFieldCod.setText("");
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+    public void preecherTabela(String SQL) {
+        ArrayList dados = new ArrayList();
+
+        String[] Colunas = new String[]{"id", "TB_cidade", "estado"};
+
+        connCidade.executaSQL(SQL);
+        try {
+            connCidade.rs.first();
+            do {
+
+                var obj = new Object[]{
+                    connCidade.rs.getInt("id_cidade"),
+                    connCidade.rs.getString("nome_cidade"),
+                    connCidade.rs.getString("sigla_estado")
+                };
+                dados.add(obj);
+            } while (connCidade.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao preecher o ArrayList!\nERRO:" + ex);
+        }
+
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        Tabela.setModel(modelo);
+        Tabela.getColumnModel().getColumn(0).setPreferredWidth(80);
+        Tabela.getColumnModel().getColumn(0).setResizable(false);
+        Tabela.getColumnModel().getColumn(1).setPreferredWidth(310);
+        Tabela.getColumnModel().getColumn(1).setResizable(false);
+        Tabela.getColumnModel().getColumn(2).setPreferredWidth(150);
+        Tabela.getColumnModel().getColumn(2).setResizable(false);
+        Tabela.getTableHeader().setReorderingAllowed(false);
+        Tabela.setAutoResizeMode(Tabela.AUTO_RESIZE_OFF);
+        Tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
 
     /**
      * @param args the command line arguments
@@ -431,6 +554,7 @@ public class FrmCidade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabela;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonCancelar;
@@ -449,7 +573,6 @@ public class FrmCidade extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldCod;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JButton jbuttonAdicionar;

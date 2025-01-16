@@ -46,7 +46,7 @@ public class ConectaBanco {
     public void desconecta() {
         try {
             conn.close();
-            JOptionPane.showMessageDialog(null, "desconectado com sucesso!!!!");
+            //JOptionPane.showMessageDialog(null, "desconectado com sucesso!!!!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão!\n Erro:" + ex.getMessage());
         }
