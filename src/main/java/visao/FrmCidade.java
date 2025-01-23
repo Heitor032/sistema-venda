@@ -6,7 +6,7 @@ package visao;
 
 import controle.ConectaBanco;
 import controle.ControleCidade;
-import controle.ModeloTabela;
+import modelo.ModeloTabela;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
