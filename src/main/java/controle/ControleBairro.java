@@ -8,22 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import modelo.ModeloBairro;
-import modelo.ModeloCidade;
-
 /**
  *
  * @author heito
  */
-public class ControleCidade {
-
+public class ControleBairro {
     ConectaBanco connCidade = new ConectaBanco();
 
-    public void InserirCidade(ModeloCidade mod) {
+    public void InserirBairro(ModeloBairro modBairro) {
         connCidade.conexao();
         try {
-            PreparedStatement pst = connCidade.conn.prepareStatement("insert into TB_cidade(nome_cidade,id_estado)values (?,?)");
-            pst.setString(1, mod.getNome());
-            pst.setInt(2, mod.getCod_estado());
+            PreparedStatement pst = connCidade.conn.prepareStatement("insert into TB_bairro(nome_bairro,id_cidade)values (?,?)");
+            pst.setString(1, modBairro.getNome());
+            pst.setInt(2, modBairro.getCod_cidade());
             pst.execute();
             JOptionPane.showMessageDialog(null, "dados armazenados com sucesso");
         } catch (SQLException ex) {
@@ -32,11 +29,11 @@ public class ControleCidade {
         connCidade.desconecta();
     }
 
-    public void excluiCidade(ModeloCidade mod) {
+    public void excluiCidade(ModeloBairro modBairro) {
         connCidade.conexao();
         try {
-            PreparedStatement pst = connCidade.conn.prepareStatement("delete  from  tb_cidade where id_cidade=?");
-            pst.setInt(1, mod.getCod());
+            PreparedStatement pst = connCidade.conn.prepareStatement("delete  from  tb_bairro where id_bairro=?");
+            pst.setInt(1, modBairro.getCod());
             pst.execute();
             JOptionPane.showMessageDialog(null, "dados Excluidos  com sucesso");
         } catch (SQLException ex) {
@@ -44,18 +41,19 @@ public class ControleCidade {
         }
     }
 
-    public void alterarCidade(ModeloCidade mod) {
+    public void alterarBairro(ModeloBairro modBairro) {
         connCidade.conexao();
-        //JOptionPane.showMessageDialog(null, mod.getCod_estado());
+        //JOptionPane.showMessageDialog(null, modBairro.getCod_cidade());
         try {
-            PreparedStatement pst = connCidade.conn.prepareStatement("update  tb_cidade set nome_cidade = ?, id_estado= ? where id_cidade=?");
-            pst.setString(1, mod.getNome());
-            pst.setInt(2, mod.getCod_estado());
-            pst.setInt(3, mod.getCod());
+            PreparedStatement pst = connCidade.conn.prepareStatement("update  tb_bairro set nome_bairro = ?, id_cidade= ? where id_bairro=?");
+            pst.setString(1, modBairro.getNome());
+            pst.setInt(2, modBairro.getCod_cidade());
+            pst.setInt(3, modBairro.getCod());
             pst.execute();
             JOptionPane.showMessageDialog(null, "dados alterados  com sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro ao alterar os dados. /n ERRO:" + ex);
         }
     }
+
 }

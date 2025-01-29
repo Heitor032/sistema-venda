@@ -296,6 +296,9 @@
         <Component class="javax.swing.JTextField" name="jTextFieldCod">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNome">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

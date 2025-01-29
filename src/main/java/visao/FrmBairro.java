@@ -5,6 +5,7 @@
 package visao;
 
 import controle.ConectaBanco;
+import controle.ControleBairro;
 import controle.ControleCidade;
 import modelo.ModeloTabela;
 import java.sql.SQLException;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import modelo.ModeloBairro;
-import modelo.ModeloCidade;
 
 /**
  *
@@ -24,7 +24,7 @@ public class FrmBairro extends javax.swing.JFrame {
     ConectaBanco connCidade = new ConectaBanco();
     ConectaBanco connBairro = new ConectaBanco();
     ModeloBairro modBairro = new ModeloBairro();
-    ControleCidade control = new ControleCidade();
+    ControleBairro control = new ControleBairro();
 
     /**
      * Creates new form FrmBairro
@@ -164,6 +164,8 @@ public class FrmBairro extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Tabela);
 
+        jTextFieldNome.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -288,10 +290,10 @@ public class FrmBairro extends javax.swing.JFrame {
             modBairro.setNome(jTextFieldNome.getText());
             connCidade.executaSQL("select * from TB_cidade where nome_cidade='" + jComboBoxCidade.getSelectedItem() + "'");
             connCidade.rs.first();
-            modBairro.setCod_estado(connCidade.rs.getInt("id_cidade"));
-            ControleCidade control = new ControleCidade();
-            control.Inserir(modBairro);
-            preecherTabela(" select * from tb_bairro inner join tb_bairro on tb_bairro.id_cidade = tb_cidade.id_cidade");
+            modBairro.setCod_Cidade(connCidade.rs.getInt("id_cidade"));
+            ControleBairro control = new ControleBairro();
+            control.InserirBairro(modBairro);
+            preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
             jTextFieldNome.setEnabled(true);
             jbuttonAlterar.setEnabled(false);
             jButtonDelete.setEnabled(false);
@@ -340,6 +342,25 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jbuttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonAlterarActionPerformed
         // TODO add your handling code here:
+        try {
+            modBairro.setCod(Integer.parseInt(jTextFieldCod.getText()));
+            modBairro.setNome(jTextFieldNome.getText());
+            connBairro.executaSQL("select * from TB_estado where nome_estado ='" + jComboBoxCidade.getSelectedItem() + "'");
+            connBairro.rs.first();
+            modBairro.setCod_Cidade(connCidade.rs.getInt("id_estado"));
+            control.alterarBairro(modBairro);
+            preecherTabela(" select * from tb_cidade inner join tb_estado on tb_cidade.id_estado = tb_estado.id_estado");
+            jTextFieldNome.setEnabled(true);
+            jbuttonAlterar.setEnabled(false);
+            jButtonDelete.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+            jbuttonAdicionar.setEnabled(true);
+            jTextFieldNome.setText("");
+            jTextFieldCod.setText("");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao alterar o registro!/n ERRO:" + ex);
+        }
     }//GEN-LAST:event_jbuttonAlterarActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -348,7 +369,7 @@ public class FrmBairro extends javax.swing.JFrame {
     public void preecherTabela(String SQL) {
         ArrayList dados = new ArrayList();
 
-        String[] Colunas = new String[]{"id", "TB_cidade", "estado"};
+        String[] Colunas = new String[]{"id", "TB_bairro", "cidade"};
 
         connBairro.executaSQL(SQL);
         try {
@@ -358,7 +379,7 @@ public class FrmBairro extends javax.swing.JFrame {
                 var obj = new Object[]{
                     connBairro.rs.getInt("id_bairro"),
                     connBairro.rs.getString("nome_bairro"),
-                    connBairro.rs.getString("nome_cidade")
+                    connBairro.rs.getString("id_cidade")
                 };
                 dados.add(obj);
             } while (connBairro.rs.next());

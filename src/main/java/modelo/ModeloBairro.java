@@ -44,18 +44,18 @@ public class ModeloBairro {
     /**
      * @return the cod_estado
      */
-    public int getCod_estado() {
+    public int getCod_cidade() {
         return cod_cidade;
     }
 
     /**
      * @param cod_estado the cod_estado to set
      */
-    public void setCod_estado(int cod_estado) {
+    public void setCod_Cidade(int cod_estado) {
         this.cod_cidade = cod_cidade;
     }
 
-    public void setCod_estado() {
+    public void setCod_Cidade() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
