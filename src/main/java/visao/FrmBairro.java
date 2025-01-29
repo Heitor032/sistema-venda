@@ -71,7 +71,7 @@ public class FrmBairro extends javax.swing.JFrame {
         jButtonPrimeiro = new javax.swing.JButton();
         jButtonUltimo = new javax.swing.JButton();
         jButtonProximo = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        jButtonAnterior = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
@@ -137,12 +137,32 @@ public class FrmBairro extends javax.swing.JFrame {
         });
 
         jButtonPrimeiro.setText("Primeiro");
+        jButtonPrimeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrimeiroActionPerformed(evt);
+            }
+        });
 
         jButtonUltimo.setText("Ultimo");
+        jButtonUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUltimoActionPerformed(evt);
+            }
+        });
 
         jButtonProximo.setText("Proximo");
+        jButtonProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProximoActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Anterior");
+        jButtonAnterior.setText("Anterior");
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
 
         jButtonSair.setText("Sair");
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
@@ -179,11 +199,11 @@ public class FrmBairro extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jbuttonAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,8 +218,8 @@ public class FrmBairro extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonPrimeiro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonUltimo)
+                                .addGap(5, 5, 5)
+                                .addComponent(jButtonAnterior)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonProximo))
                             .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -209,8 +229,9 @@ public class FrmBairro extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonUltimo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -242,9 +263,9 @@ public class FrmBairro extends javax.swing.JFrame {
                     .addComponent(jButtonPrimeiro)
                     .addComponent(jButtonUltimo)
                     .addComponent(jButtonProximo)
-                    .addComponent(jButton10)
                     .addComponent(jButtonSair)
-                    .addComponent(jButtonSalvar))
+                    .addComponent(jButtonSalvar)
+                    .addComponent(jButtonAnterior))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -267,7 +288,7 @@ public class FrmBairro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,26 +306,7 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        try {
-
-            modBairro.setNome(jTextFieldNome.getText());
-            connCidade.executaSQL("select * from TB_cidade where nome_cidade='" + jComboBoxCidade.getSelectedItem() + "'");
-            connCidade.rs.first();
-            modBairro.setCod_Cidade(connCidade.rs.getInt("id_cidade"));
-            ControleBairro control = new ControleBairro();
-            control.InserirBairro(modBairro);
-            preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
-            jTextFieldNome.setEnabled(true);
-            jbuttonAlterar.setEnabled(false);
-            jButtonDelete.setEnabled(false);
-            jButtonCancelar.setEnabled(false);
-            jButtonSalvar.setEnabled(false);
-            jbuttonAdicionar.setEnabled(true);
-            jTextFieldNome.setText("");
-            jTextFieldCod.setText("");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "erro ao Salvar!/n ERRO:" + ex);
-        }
+        inserirCidade();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
@@ -343,13 +345,17 @@ public class FrmBairro extends javax.swing.JFrame {
     private void jbuttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonAlterarActionPerformed
         // TODO add your handling code here:
         try {
+ 
+            connCidade.executaSQL("select * from TB_cidade where nome_cidade ='" + jComboBoxCidade.getSelectedItem() + "'");
+            connCidade.rs.first();
+            
             modBairro.setCod(Integer.parseInt(jTextFieldCod.getText()));
             modBairro.setNome(jTextFieldNome.getText());
-            connBairro.executaSQL("select * from TB_estado where nome_estado ='" + jComboBoxCidade.getSelectedItem() + "'");
-            connBairro.rs.first();
-            modBairro.setCod_Cidade(connCidade.rs.getInt("id_estado"));
+            modBairro.setCodCidade(connCidade.rs.getInt("id_cidade"));
             control.alterarBairro(modBairro);
-            preecherTabela(" select * from tb_cidade inner join tb_estado on tb_cidade.id_estado = tb_estado.id_estado");
+            
+            
+            preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
             jTextFieldNome.setEnabled(true);
             jbuttonAlterar.setEnabled(false);
             jButtonDelete.setEnabled(false);
@@ -365,7 +371,107 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
+        try {
+            int codigo = Integer.parseInt(jTextFieldCod.getText());
+            System.out.println(codigo);
+            modBairro.setCod(codigo);
+            modBairro.setNome(jTextFieldNome.getText());
+            modBairro.setCodCidade(connBairro.rs.getInt("id_cidade"));
+            control.excluiCidade(modBairro);
+            preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
+            jTextFieldNome.setEnabled(true);
+            jbuttonAlterar.setEnabled(false);
+            jButtonDelete.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+            jbuttonAdicionar.setEnabled(true);
+            jTextFieldNome.setText("");
+            jTextFieldCod.setText("");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao excluir o registro!/n ERRO:" + ex);
+        }
+
     }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
+        // TODO add your handling code here:jButtonAlterar.setEnabled(true);
+        jbuttonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);
+        try {
+            connBairro.executaSQL("select * from tb_bairro order by id_bairro");
+            connBairro.rs.first();
+            jTextFieldCod.setText(String.valueOf(connBairro.rs.getInt("id_bairro")));
+            jTextFieldNome.setText(connBairro.rs.getString("nome_bairro"));
+            connCidade.executaSQL("select * from tb_cidade where id_cidade=" + connBairro.rs.getInt("id_cidade"));
+            connCidade.rs.first();
+            jComboBoxCidade.setSelectedItem(connCidade.rs.getString("nome_cidade"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o primeiro registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonPrimeiroActionPerformed
+
+    private void jButtonUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimoActionPerformed
+        // TODO add your handling code here:
+        jbuttonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);
+        try {
+            connBairro.executaSQL("select * from tb_bairro order by id_bairro");
+            connBairro.rs.last();
+            jTextFieldCod.setText(String.valueOf(connBairro.rs.getInt("id_bairro")));
+            jTextFieldNome.setText(connBairro.rs.getString("nome_bairro"));
+            connCidade.executaSQL("select * from tb_cidade where id_cidade=" + connBairro.rs.getInt("id_cidade"));
+            connCidade.rs.first();
+            jComboBoxCidade.setSelectedItem(connCidade.rs.getString("nome_cidade"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o primeiro registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonUltimoActionPerformed
+
+    private void jButtonProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximoActionPerformed
+        // TODO add your handling code here:
+        jbuttonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);
+        try {
+            //connBairro.executaSQL("select * from tb_bairro order by id_bairro");
+            connBairro.rs.next();
+            jTextFieldCod.setText(String.valueOf(connBairro.rs.getInt("id_cidade")));
+            jTextFieldNome.setText(connBairro.rs.getString("nome_bairro"));
+            connCidade.executaSQL("select * from tb_cidade where id_cidade=" + connBairro.rs.getInt("id_cidade"));
+            connCidade.rs.first();
+            jComboBoxCidade.setSelectedItem(connCidade.rs.getString("nome_cidade"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o primeiro registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonProximoActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        // TODO add your handling code here:
+        jbuttonAlterar.setEnabled(true);
+        jButtonDelete.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jbuttonAdicionar.setEnabled(false);
+        jTextFieldNome.setEnabled(true);
+        try {
+            // connBairro.executaSQL("select * from tb_bairro order by id_bairro");
+            connBairro.rs.previous();
+            jTextFieldCod.setText(String.valueOf(connBairro.rs.getInt("id_bairro")));
+            jTextFieldNome.setText(connBairro.rs.getString("nome_bairro"));
+            connCidade.executaSQL("select * from tb_cidade where id_cidade=" + connBairro.rs.getInt("id_cidade"));
+            connCidade.rs.first();
+            jComboBoxCidade.setSelectedItem(connCidade.rs.getString("nome_cidade"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao o primeiro registro!/n ERRO:" + ex);
+        }
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
     public void preecherTabela(String SQL) {
         ArrayList dados = new ArrayList();
 
@@ -379,7 +485,7 @@ public class FrmBairro extends javax.swing.JFrame {
                 var obj = new Object[]{
                     connBairro.rs.getInt("id_bairro"),
                     connBairro.rs.getString("nome_bairro"),
-                    connBairro.rs.getString("id_cidade")
+                    connBairro.rs.getString("nome_cidade")
                 };
                 dados.add(obj);
             } while (connBairro.rs.next());
@@ -437,8 +543,8 @@ public class FrmBairro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabela;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonPrimeiro;
@@ -458,4 +564,29 @@ public class FrmBairro extends javax.swing.JFrame {
     private javax.swing.JButton jbuttonAdicionar;
     private javax.swing.JButton jbuttonAlterar;
     // End of variables declaration//GEN-END:variables
+
+    private void inserirCidade() {
+        try {
+            ControleBairro control = new ControleBairro();
+            modBairro.setNome(jTextFieldNome.getText());
+            connCidade.executaSQL("select * from TB_cidade where nome_cidade='" + jComboBoxCidade.getSelectedItem() + "'");
+            connCidade.rs.first();
+            int idCidade = connCidade.rs.getInt("id_cidade");
+            modBairro.setCodCidade(idCidade);
+      
+            control.InserirBairro(modBairro);
+            preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
+            jTextFieldNome.setEnabled(true);
+            jbuttonAlterar.setEnabled(false);
+            jButtonDelete.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+            jbuttonAdicionar.setEnabled(true);
+            jTextFieldNome.setText("");
+            jTextFieldCod.setText("");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "erro ao Salvar!/n ERRO:" + ex);
+        }
+
+    }
 }

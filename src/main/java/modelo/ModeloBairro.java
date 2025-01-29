@@ -11,7 +11,7 @@ package modelo;
 public class ModeloBairro {
     private int cod;
     private String nome;
-    private int cod_cidade;
+    private int codCidade;
 
     /**
      * @return the cod
@@ -44,19 +44,16 @@ public class ModeloBairro {
     /**
      * @return the cod_estado
      */
-    public int getCod_cidade() {
-        return cod_cidade;
+    public int getCodCidade() {
+        return codCidade;
     }
 
     /**
-     * @param cod_estado the cod_estado to set
+     * @param codCidade the cod_estado to set
      */
-    public void setCod_Cidade(int cod_estado) {
-        this.cod_cidade = cod_cidade;
+    public void setCodCidade(int codCidade) {
+        this.codCidade = codCidade;
     }
 
-    public void setCod_Cidade() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }
