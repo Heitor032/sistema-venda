@@ -6,7 +6,6 @@ package visao;
 
 import controle.ConectaBanco;
 import controle.ControleBairro;
-import controle.ControleCidade;
 import modelo.ModeloTabela;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -184,7 +183,24 @@ public class FrmBairro extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(Tabela);
 
+        jTextFieldCod.setEditable(false);
+        jTextFieldCod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldCodMouseClicked(evt);
+            }
+        });
+        jTextFieldCod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCodActionPerformed(evt);
+            }
+        });
+
         jTextFieldNome.setEnabled(false);
+        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -328,11 +344,15 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        FrmCidade frm = new FrmCidade();
+        if (frm.getEstadoVazio()) {
+            frm.setVisible(true);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
-        jTextFieldNome.setEnabled(true);
+        jTextFieldNome.setEnabled(false);
         jbuttonAlterar.setEnabled(false);
         jButtonDelete.setEnabled(false);
         jButtonCancelar.setEnabled(false);
@@ -345,18 +365,17 @@ public class FrmBairro extends javax.swing.JFrame {
     private void jbuttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonAlterarActionPerformed
         // TODO add your handling code here:
         try {
- 
+
             connCidade.executaSQL("select * from TB_cidade where nome_cidade ='" + jComboBoxCidade.getSelectedItem() + "'");
             connCidade.rs.first();
-            
+
             modBairro.setCod(Integer.parseInt(jTextFieldCod.getText()));
             modBairro.setNome(jTextFieldNome.getText());
             modBairro.setCodCidade(connCidade.rs.getInt("id_cidade"));
             control.alterarBairro(modBairro);
-            
-            
+
             preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
-            jTextFieldNome.setEnabled(true);
+            jTextFieldNome.setEnabled(false);
             jbuttonAlterar.setEnabled(false);
             jButtonDelete.setEnabled(false);
             jButtonCancelar.setEnabled(false);
@@ -379,7 +398,7 @@ public class FrmBairro extends javax.swing.JFrame {
             modBairro.setCodCidade(connBairro.rs.getInt("id_cidade"));
             control.excluiCidade(modBairro);
             preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
-            jTextFieldNome.setEnabled(true);
+            jTextFieldNome.setEnabled(false);
             jbuttonAlterar.setEnabled(false);
             jButtonDelete.setEnabled(false);
             jButtonCancelar.setEnabled(false);
@@ -395,6 +414,7 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
         // TODO add your handling code here:jButtonAlterar.setEnabled(true);
+        jButtonSalvar.setEnabled(false);
         jbuttonAlterar.setEnabled(true);
         jButtonDelete.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -415,6 +435,7 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jButtonUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimoActionPerformed
         // TODO add your handling code here:
+        jButtonSalvar.setEnabled(false);
         jbuttonAlterar.setEnabled(true);
         jButtonDelete.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -435,6 +456,7 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jButtonProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximoActionPerformed
         // TODO add your handling code here:
+        jButtonSalvar.setEnabled(false);
         jbuttonAlterar.setEnabled(true);
         jButtonDelete.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -443,7 +465,7 @@ public class FrmBairro extends javax.swing.JFrame {
         try {
             //connBairro.executaSQL("select * from tb_bairro order by id_bairro");
             connBairro.rs.next();
-            jTextFieldCod.setText(String.valueOf(connBairro.rs.getInt("id_cidade")));
+            jTextFieldCod.setText(String.valueOf(connBairro.rs.getInt("id_bairro")));
             jTextFieldNome.setText(connBairro.rs.getString("nome_bairro"));
             connCidade.executaSQL("select * from tb_cidade where id_cidade=" + connBairro.rs.getInt("id_cidade"));
             connCidade.rs.first();
@@ -456,6 +478,7 @@ public class FrmBairro extends javax.swing.JFrame {
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
         // TODO add your handling code here:
         jbuttonAlterar.setEnabled(true);
+        jButtonSalvar.setEnabled(false);
         jButtonDelete.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jbuttonAdicionar.setEnabled(false);
@@ -472,6 +495,18 @@ public class FrmBairro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "erro ao o primeiro registro!/n ERRO:" + ex);
         }
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jTextFieldCodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCodMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCodMouseClicked
+
+    private void jTextFieldCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCodActionPerformed
+
+    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNomeActionPerformed
     public void preecherTabela(String SQL) {
         ArrayList dados = new ArrayList();
 
@@ -567,16 +602,21 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void inserirCidade() {
         try {
+            String nomeCidade = jTextFieldNome.getText();
+
+            if (nomeCidade == null || nomeCidade.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nome Do bairro está vazio");
+                return;
+            }
             ControleBairro control = new ControleBairro();
             modBairro.setNome(jTextFieldNome.getText());
             connCidade.executaSQL("select * from TB_cidade where nome_cidade='" + jComboBoxCidade.getSelectedItem() + "'");
             connCidade.rs.first();
             int idCidade = connCidade.rs.getInt("id_cidade");
             modBairro.setCodCidade(idCidade);
-      
             control.InserirBairro(modBairro);
             preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
-            jTextFieldNome.setEnabled(true);
+            jTextFieldNome.setEnabled(false);
             jbuttonAlterar.setEnabled(false);
             jButtonDelete.setEnabled(false);
             jButtonCancelar.setEnabled(false);

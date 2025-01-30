@@ -13,6 +13,7 @@ import controle.ConectaBanco;
 public class MainFrame extends javax.swing.JFrame {
 
     ConectaBanco conecta = new ConectaBanco();
+
     /**
      * Creates new form MainFrame
      */
@@ -32,13 +33,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         barra = new javax.swing.JMenuBar();
         Cadastros = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItemEstado = new javax.swing.JMenuItem();
+        jMenuItemCidade = new javax.swing.JMenuItem();
+        jMenuItemBairro = new javax.swing.JMenuItem();
+        jMenuItemTelefone = new javax.swing.JMenuItem();
+        jMenuItemClientes = new javax.swing.JMenuItem();
+        jMenuItemFornecedores = new javax.swing.JMenuItem();
+        jMenuItemProdutos = new javax.swing.JMenuItem();
         Compra = new javax.swing.JMenu();
         Venda = new javax.swing.JMenu();
         Relatórios = new javax.swing.JMenu();
@@ -49,41 +50,51 @@ public class MainFrame extends javax.swing.JFrame {
 
         Cadastros.setText("Cadastros");
 
-        jMenuItem1.setText("Estados");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemEstado.setText("Estado");
+        jMenuItemEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemEstadoActionPerformed(evt);
             }
         });
-        Cadastros.add(jMenuItem1);
+        Cadastros.add(jMenuItemEstado);
 
-        jMenuItem2.setText("Cidades");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCidade.setText("Cidade");
+        jMenuItemCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemCidadeActionPerformed(evt);
             }
         });
-        Cadastros.add(jMenuItem2);
+        Cadastros.add(jMenuItemCidade);
 
-        jMenuItem3.setText("Bairro");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemBairro.setText("Bairro");
+        jMenuItemBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItemBairroActionPerformed(evt);
             }
         });
-        Cadastros.add(jMenuItem3);
+        Cadastros.add(jMenuItemBairro);
 
-        jMenuItem6.setText("Telefone");
-        Cadastros.add(jMenuItem6);
+        jMenuItemTelefone.setText("Telefone");
+        jMenuItemTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTelefoneActionPerformed(evt);
+            }
+        });
+        Cadastros.add(jMenuItemTelefone);
 
-        jMenuItem4.setText("Clientes");
-        Cadastros.add(jMenuItem4);
+        jMenuItemClientes.setText("Clientes");
+        jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClientesActionPerformed(evt);
+            }
+        });
+        Cadastros.add(jMenuItemClientes);
 
-        jMenuItem7.setText("Fornecedores");
-        Cadastros.add(jMenuItem7);
+        jMenuItemFornecedores.setText("Fornecedores");
+        Cadastros.add(jMenuItemFornecedores);
 
-        jMenuItem5.setText("Produtos");
-        Cadastros.add(jMenuItem5);
+        jMenuItemProdutos.setText("Produtos");
+        Cadastros.add(jMenuItemProdutos);
 
         barra.add(Cadastros);
 
@@ -121,32 +132,43 @@ public class MainFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCidadeActionPerformed
         // TODO add your handling code here:
         FrmCidade frm = new FrmCidade();
-        if(frm.getEstadoVazio()){
+        if (frm.getEstadoVazio()) {
             frm.setVisible(true);
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItemCidadeActionPerformed
 
     private void SairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SairMouseClicked
         // TODO add your handling code here:
         conecta.desconecta();
         System.exit(0);
-        
+
     }//GEN-LAST:event_SairMouseClicked
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstadoActionPerformed
         // TODO add your handling code here:
         FrmEstado frm = new FrmEstado();
         frm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemEstadoActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItemBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBairroActionPerformed
         // TODO add your handling code here:
         FrmBairro frm = new FrmBairro();
         frm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuItemBairroActionPerformed
+
+    private void jMenuItemTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTelefoneActionPerformed
+        // TODO add your handling code here:
+        FrmTelefone frm = new FrmTelefone();
+        frm.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItemTelefoneActionPerformed
+
+    private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,12 +210,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu Sair;
     private javax.swing.JMenu Venda;
     private javax.swing.JMenuBar barra;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItemBairro;
+    private javax.swing.JMenuItem jMenuItemCidade;
+    private javax.swing.JMenuItem jMenuItemClientes;
+    private javax.swing.JMenuItem jMenuItemEstado;
+    private javax.swing.JMenuItem jMenuItemFornecedores;
+    private javax.swing.JMenuItem jMenuItemProdutos;
+    private javax.swing.JMenuItem jMenuItemTelefone;
     // End of variables declaration//GEN-END:variables
 }

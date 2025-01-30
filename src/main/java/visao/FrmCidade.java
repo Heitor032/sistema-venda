@@ -91,6 +91,14 @@ public class FrmCidade extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTextFieldCod.setEnabled(false);
+        jTextFieldCod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldCodMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTextFieldCodMouseEntered(evt);
+            }
+        });
 
         jTextFieldNome.setEnabled(false);
 
@@ -484,6 +492,14 @@ public class FrmCidade extends javax.swing.JFrame {
         jTextFieldNome.setText("");
         jTextFieldCod.setText("");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jTextFieldCodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCodMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCodMouseClicked
+
+    private void jTextFieldCodMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldCodMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCodMouseEntered
     public void preecherTabela(String SQL) {
         ArrayList dados = new ArrayList();
 

@@ -22,8 +22,7 @@ public class ControleBairro {
             pst.setString(1, modBairro.getNome());
             System.out.println(modBairro.getCodCidade());
             pst.setInt(2, modBairro.getCodCidade());
-            JOptionPane.showMessageDialog(null,modBairro.getCodCidade());
-            pst.executeUpdate();
+                pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "dados armazenados com sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro na inserção dos dados. /n ERRO:" + ex);
