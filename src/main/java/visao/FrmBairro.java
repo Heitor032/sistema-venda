@@ -414,12 +414,7 @@ public class FrmBairro extends javax.swing.JFrame {
 
     private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
         // TODO add your handling code here:jButtonAlterar.setEnabled(true);
-        jButtonSalvar.setEnabled(false);
-        jbuttonAlterar.setEnabled(true);
-        jButtonDelete.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-        jbuttonAdicionar.setEnabled(false);
-        jTextFieldNome.setEnabled(true);
+
         try {
             connBairro.executaSQL("select * from tb_bairro order by id_bairro");
             connBairro.rs.first();
@@ -428,6 +423,12 @@ public class FrmBairro extends javax.swing.JFrame {
             connCidade.executaSQL("select * from tb_cidade where id_cidade=" + connBairro.rs.getInt("id_cidade"));
             connCidade.rs.first();
             jComboBoxCidade.setSelectedItem(connCidade.rs.getString("nome_cidade"));
+            jButtonSalvar.setEnabled(false);
+            jbuttonAlterar.setEnabled(true);
+            jButtonDelete.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            jbuttonAdicionar.setEnabled(false);
+            jTextFieldNome.setEnabled(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "erro ao o primeiro registro!/n ERRO:" + ex);
         }

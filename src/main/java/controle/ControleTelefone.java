@@ -6,6 +6,7 @@ package controle;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import modelo.ModeloTelefone;
 
 /**
@@ -14,9 +15,26 @@ import modelo.ModeloTelefone;
  */
 public class ControleTelefone {
 
-    public void InserirTel(ModeloTelefone tel) {
+    ConectaBanco connex = new ConectaBanco();
+    ModeloTelefone modTel = new ModeloTelefone();
+    ModeloTelefone connBot = new ModeloTelefone();
+
+    public void InserirTel(ModeloTelefone modTel) {
         connex.conexao();
-        PreparedStatement pst = connTel.conn.prepareStatement("inset * from ");
-        
+        try {
+            PreparedStatement pst = connex.conn.prepareStatement("insert into TB_telefone(numero_tel)values(?)");
+            pst.setString(1, modTel.getTel());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "dados armazenados com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO AO INSERIR !/nERRO:" + ex);
+        }
     }
+
+    public ModeloTelefone primeiro() {
+       
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+ 
+    }
+
 }

@@ -18,22 +18,21 @@ import modelo.ModeloTelefone;
  * @author heito
  */
 public class FrmTelefone extends javax.swing.JFrame {
-    ConectaBanco connTel = new ConectaBanco();
-    ModeloTelefone ModTel = new ModeloTelefone();
+    ModeloTelefone modTel = new ModeloTelefone();
     ControleTelefone control = new ControleTelefone();
-    
+
     /**
      * Creates new form FrmTelefone
      */
     public FrmTelefone() {
         initComponents();
         try {
-            MaskFormatter frm = new MaskFormatter("(##)####-####");
+            MaskFormatter frm = new MaskFormatter("(##)#### - ####");
             jFormattedTextFieldTel.setFormatterFactory(new DefaultFormatterFactory(frm));
         } catch (ParseException ex) {
             Logger.getLogger(FrmTelefone.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -59,6 +58,7 @@ public class FrmTelefone extends javax.swing.JFrame {
         jButtonAnterior = new javax.swing.JButton();
         jButtonUltimo = new javax.swing.JButton();
         jButtonProximo = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,7 +70,18 @@ public class FrmTelefone extends javax.swing.JFrame {
             }
         });
 
+        jFormattedTextFieldTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldTelActionPerformed(evt);
+            }
+        });
+
         jButtonAdicionar.setText("Adicionar");
+        jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdicionarActionPerformed(evt);
+            }
+        });
 
         jButtonAlterar.setText("Alterar");
 
@@ -95,6 +106,11 @@ public class FrmTelefone extends javax.swing.JFrame {
         jLabel3.setText("Telefone");
 
         jButtonPrimeiro.setText("<<");
+        jButtonPrimeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrimeiroActionPerformed(evt);
+            }
+        });
 
         jButtonAnterior.setText("<");
         jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +122,8 @@ public class FrmTelefone extends javax.swing.JFrame {
         jButtonUltimo.setText(">>");
 
         jButtonProximo.setText(">");
+
+        jButtonCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -141,12 +159,15 @@ public class FrmTelefone extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonUltimo)
-                            .addComponent(jButtonProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButtonProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonExcluir)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSair)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +197,8 @@ public class FrmTelefone extends javax.swing.JFrame {
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonAlterar)
                     .addComponent(jButtonExcluir)
-                    .addComponent(jButtonSair))
+                    .addComponent(jButtonSair)
+                    .addComponent(jButtonCancelar))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -189,25 +211,27 @@ public class FrmTelefone extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(7, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(20, 20, 20))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(542, 263));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodActionPerformed
@@ -225,16 +249,44 @@ public class FrmTelefone extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        ModTel.setTel((jFormattedTextFieldTel.getText()));
-        control.InserirTel((ModTel));
+        modTel.setTel((jFormattedTextFieldTel.getText()));
+        control.InserirTel((modTel));
         jFormattedTextFieldTel.setEnabled(!true);
         jButtonExcluir.setEnabled(!true);
         jButtonSalvar.setEnabled(!true);
         jButtonAlterar.setEnabled(!true);
         jButtonAdicionar.setEnabled(!false);
-        
-        
+
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
+        // TODO add your handling code here:
+        jTextFieldCod.setText("");
+        jFormattedTextFieldTel.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+        jButtonSalvar.setEnabled(true);
+        jButtonAlterar.setEnabled(true);
+        jButtonAdicionar.setEnabled(false);
+
+    }//GEN-LAST:event_jButtonAdicionarActionPerformed
+
+    private void jFormattedTextFieldTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldTelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldTelActionPerformed
+
+    private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
+        // TODO add your handling code here:
+        modTel = control.primeiro();
+        jTextFieldCod.setText(String.valueOf(modTel.getCodTel()));
+        jFormattedTextFieldTel.setText(modTel.getTel());
+        jFormattedTextFieldTel.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+        jButtonAlterar.setEnabled(true);
+        jButtonAdicionar.setEnabled(false);
+        
+       
+    }//GEN-LAST:event_jButtonPrimeiroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,6 +327,7 @@ public class FrmTelefone extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonPrimeiro;
     private javax.swing.JButton jButtonProximo;

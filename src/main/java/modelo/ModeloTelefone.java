@@ -39,4 +39,8 @@ public class ModeloTelefone {
     public void setTel(String tel) {
         this.tel = tel;
     }
+
+    public void conexao() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
