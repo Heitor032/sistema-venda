@@ -6,6 +6,8 @@ package controle;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.ModeloTelefone;
 
@@ -31,10 +33,48 @@ public class ControleTelefone {
         }
     }
 
-    public ModeloTelefone primeiro() {
-       
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
- 
+    public void Excluir(ModeloTelefone modeloTel) {
+        connex.conexao();
+        PreparedStatement pst;
+        try {
+            pst = connex.conn.prepareStatement("Delete from tb_telefone where id_telefone=?");
+            pst.setString(1, modTel.getTel());
+            pst.setInt(2, modTel.getCodTel());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "excluido com sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO AO excluir !/nERRO:" + ex);
+        }
+        connex.desconecta();
     }
 
+    public void alterar(ModeloTelefone modTel) {
+        connex.conexao();
+        PreparedStatement pst;
+        try {
+            pst = connex.conn.prepareStatement("update tb_telefone set numero_tel= ? where id_telefone=?");
+            pst.setString(1, modTel.getTel());
+            pst.setInt(2, modTel.getCodTel());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "alterados  com sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO AO alterar !/nERRO:" + ex);
+        }
+
+    }
+
+    public ModeloTelefone primeiro() {
+        connex.conexao();
+        connex.executaSQL("select * from Tb_telefone");
+        try {
+            connex.rs.first();
+            modTel.setCodTel(connex.rs.getInt("id_telefone"));
+            modTel.setTel(connex.rs.getString("numero_tel"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex);
+        }
+        connex.desconecta();
+        return modTel;
+
+    }
 }

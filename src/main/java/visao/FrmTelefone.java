@@ -18,6 +18,7 @@ import modelo.ModeloTelefone;
  * @author heito
  */
 public class FrmTelefone extends javax.swing.JFrame {
+
     ModeloTelefone modTel = new ModeloTelefone();
     ControleTelefone control = new ControleTelefone();
 
@@ -64,12 +65,14 @@ public class FrmTelefone extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Telefone");
 
+        jTextFieldCod.setEditable(false);
         jTextFieldCod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCodActionPerformed(evt);
             }
         });
 
+        jFormattedTextFieldTel.setEnabled(false);
         jFormattedTextFieldTel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextFieldTelActionPerformed(evt);
@@ -84,8 +87,14 @@ public class FrmTelefone extends javax.swing.JFrame {
         });
 
         jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.setEnabled(false);
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
@@ -93,6 +102,11 @@ public class FrmTelefone extends javax.swing.JFrame {
         });
 
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jButtonSair.setText("Sair");
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +138,11 @@ public class FrmTelefone extends javax.swing.JFrame {
         jButtonProximo.setText(">");
 
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -252,12 +271,12 @@ public class FrmTelefone extends javax.swing.JFrame {
         modTel.setTel((jFormattedTextFieldTel.getText()));
         control.InserirTel((modTel));
         jFormattedTextFieldTel.setEnabled(!true);
-        jButtonExcluir.setEnabled(!true);
+        jButtonExcluir.setEnabled(!false);
         jButtonSalvar.setEnabled(!true);
-        jButtonAlterar.setEnabled(!true);
+        jButtonAlterar.setEnabled(!false);
         jButtonAdicionar.setEnabled(!false);
-
-
+        jFormattedTextFieldTel.setText("");
+        jTextFieldCod.setText("");
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
@@ -284,9 +303,43 @@ public class FrmTelefone extends javax.swing.JFrame {
         jButtonExcluir.setEnabled(true);
         jButtonAlterar.setEnabled(true);
         jButtonAdicionar.setEnabled(false);
-        
-       
+
+
     }//GEN-LAST:event_jButtonPrimeiroActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:jFormattedTextFieldTel.setEnabled(!true);
+        jButtonExcluir.setEnabled(!false);
+        jButtonSalvar.setEnabled(!true);
+        jButtonAlterar.setEnabled(!false);
+        jButtonAdicionar.setEnabled(!false);
+        jFormattedTextFieldTel.setText("");
+        jTextFieldCod.setText("");
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        modTel.setCodTel(Integer.parseInt(jTextFieldCod.getText()));
+        control.Excluir(modTel);
+        jButtonExcluir.setEnabled(!true);
+        jButtonSalvar.setEnabled(!true);
+        jButtonAlterar.setEnabled(!true);
+        jButtonAdicionar.setEnabled(!false);
+        jFormattedTextFieldTel.setEnabled(!true);
+
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        // TODO add your handling code here:
+        modTel.setCodTel(Integer.parseInt(jTextFieldCod.getText()));
+        modTel.setTel(jFormattedTextFieldTel.getText());
+        control.alterar(modTel);
+        jButtonExcluir.setEnabled(!true);
+        jButtonSalvar.setEnabled(!true);
+        jButtonAlterar.setEnabled(!true);
+        jButtonAdicionar.setEnabled(!false);
+        jFormattedTextFieldTel.setEnabled(!true);
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     /**
      * @param args the command line arguments
