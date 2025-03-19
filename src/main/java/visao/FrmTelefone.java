@@ -134,8 +134,18 @@ public class FrmTelefone extends javax.swing.JFrame {
         });
 
         jButtonUltimo.setText(">>");
+        jButtonUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUltimoActionPerformed(evt);
+            }
+        });
 
         jButtonProximo.setText(">");
+        jButtonProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProximoActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,6 +274,13 @@ public class FrmTelefone extends javax.swing.JFrame {
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
         // TODO add your handling code here:
+        modTel = control.anterior();
+        jTextFieldCod.setText(String.valueOf(modTel.getCodTel()));
+        jFormattedTextFieldTel.setText(modTel.getTel());
+        jFormattedTextFieldTel.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+        jButtonAlterar.setEnabled(true);
+        jButtonAdicionar.setEnabled(false);
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -271,9 +288,9 @@ public class FrmTelefone extends javax.swing.JFrame {
         modTel.setTel((jFormattedTextFieldTel.getText()));
         control.InserirTel((modTel));
         jFormattedTextFieldTel.setEnabled(!true);
-        jButtonExcluir.setEnabled(!false);
+        jButtonExcluir.setEnabled(!true);
         jButtonSalvar.setEnabled(!true);
-        jButtonAlterar.setEnabled(!false);
+        jButtonAlterar.setEnabled(!true);
         jButtonAdicionar.setEnabled(!false);
         jFormattedTextFieldTel.setText("");
         jTextFieldCod.setText("");
@@ -309,10 +326,11 @@ public class FrmTelefone extends javax.swing.JFrame {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:jFormattedTextFieldTel.setEnabled(!true);
-        jButtonExcluir.setEnabled(!false);
+        jButtonExcluir.setEnabled(!true);
         jButtonSalvar.setEnabled(!true);
-        jButtonAlterar.setEnabled(!false);
+        jButtonAlterar.setEnabled(!true);
         jButtonAdicionar.setEnabled(!false);
+        jFormattedTextFieldTel.setEnabled(!true);
         jFormattedTextFieldTel.setText("");
         jTextFieldCod.setText("");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -321,11 +339,13 @@ public class FrmTelefone extends javax.swing.JFrame {
         // TODO add your handling code here:
         modTel.setCodTel(Integer.parseInt(jTextFieldCod.getText()));
         control.Excluir(modTel);
+        jFormattedTextFieldTel.setEnabled(!true);
         jButtonExcluir.setEnabled(!true);
         jButtonSalvar.setEnabled(!true);
         jButtonAlterar.setEnabled(!true);
         jButtonAdicionar.setEnabled(!false);
-        jFormattedTextFieldTel.setEnabled(!true);
+        jFormattedTextFieldTel.setText("");
+        jTextFieldCod.setText("");
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
@@ -334,12 +354,35 @@ public class FrmTelefone extends javax.swing.JFrame {
         modTel.setCodTel(Integer.parseInt(jTextFieldCod.getText()));
         modTel.setTel(jFormattedTextFieldTel.getText());
         control.alterar(modTel);
+        jFormattedTextFieldTel.setEnabled(!true);
         jButtonExcluir.setEnabled(!true);
         jButtonSalvar.setEnabled(!true);
         jButtonAlterar.setEnabled(!true);
         jButtonAdicionar.setEnabled(!false);
-        jFormattedTextFieldTel.setEnabled(!true);
+        jFormattedTextFieldTel.setText("");
+        jTextFieldCod.setText("");
     }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimoActionPerformed
+        modTel = control.ultimo();
+        jTextFieldCod.setText(String.valueOf(modTel.getCodTel()));
+        jFormattedTextFieldTel.setText(modTel.getTel());
+        jFormattedTextFieldTel.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+        jButtonAlterar.setEnabled(true);
+        jButtonAdicionar.setEnabled(false);
+    }//GEN-LAST:event_jButtonUltimoActionPerformed
+
+    private void jButtonProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximoActionPerformed
+        // TODO add your handling code here:
+        modTel = control.proximo();
+        jTextFieldCod.setText(String.valueOf(modTel.getCodTel()));
+        jFormattedTextFieldTel.setText(modTel.getTel());
+        jFormattedTextFieldTel.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+        jButtonAlterar.setEnabled(true);
+        jButtonAdicionar.setEnabled(false);
+    }//GEN-LAST:event_jButtonProximoActionPerformed
 
     /**
      * @param args the command line arguments

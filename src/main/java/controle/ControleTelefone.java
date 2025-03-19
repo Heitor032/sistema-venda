@@ -38,8 +38,7 @@ public class ControleTelefone {
         PreparedStatement pst;
         try {
             pst = connex.conn.prepareStatement("Delete from tb_telefone where id_telefone=?");
-            pst.setString(1, modTel.getTel());
-            pst.setInt(2, modTel.getCodTel());
+            pst.setInt(1, modTel.getCodTel());
             pst.execute();
             JOptionPane.showMessageDialog(null, "excluido com sucesso");
         } catch (SQLException ex) {
@@ -76,5 +75,46 @@ public class ControleTelefone {
         connex.desconecta();
         return modTel;
 
+    }
+
+    public ModeloTelefone ultimo() {
+        connex.conexao();
+        try {
+            connex.rs.last();
+            modTel.setCodTel(connex.rs.getInt("id_telefone"));
+            modTel.setTel(connex.rs.getString("numero_tel"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex);
+        }
+        connex.desconecta();
+        return modTel;
+
+    }
+
+    public ModeloTelefone anterior() {
+        connex.conexao();
+        try {
+            connex.rs.previous();
+            modTel.setCodTel(connex.rs.getInt("id_telefone"));
+            modTel.setTel(connex.rs.getString("numero_tel"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex);
+        }
+        connex.desconecta();
+        return modTel;
+
+    }
+
+    public ModeloTelefone proximo() {
+        connex.conexao();
+        try {
+            connex.rs.next();
+            modTel.setCodTel(connex.rs.getInt("id_telefone"));
+            modTel.setTel(connex.rs.getString("numero_tel"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO:" + ex);
+        }
+        connex.desconecta();
+        return modTel;
     }
 }
