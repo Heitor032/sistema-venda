@@ -168,6 +168,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
         // TODO add your handling code here:
+        FrmCliente frm = new FrmCliente();
+        frm.setVisible(true);
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     /**
