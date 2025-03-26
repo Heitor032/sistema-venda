@@ -8,11 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import modelo.ModeloBairro;
+
 /**
  *
  * @author heito
  */
 public class ControleBairro {
+
     ConectaBanco connBairro = new ConectaBanco();
 
     public void InserirBairro(ModeloBairro modBairro) {
@@ -22,7 +24,7 @@ public class ControleBairro {
             pst.setString(1, modBairro.getNome());
             System.out.println(modBairro.getCodCidade());
             pst.setInt(2, modBairro.getCodCidade());
-                pst.executeUpdate();
+            pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "dados armazenados com sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro na inserção dos dados. /n ERRO:" + ex);
