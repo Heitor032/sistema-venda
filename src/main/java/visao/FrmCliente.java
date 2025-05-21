@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -32,7 +32,24 @@ public class FrmCliente extends javax.swing.JFrame {
         // initComponents();
         connCidade.conexao();
         connex.conexao();
-        preecherTabela(" select * from tb_bairro inner join tb_cidade on tb_bairro.id_cidade = tb_cidade.id_cidade");
+        preecherTabela(" select \n" +
+"    c.id_cliente,\n" +
+"    c.nome_cliente,\n" +
+"c.endereco_cliente,\n" +
+"c.rg_cliente,\n" +
+"c.cpf_cliente,\n" +
+"b.nome_bairro,\n" +
+"cd.nome_cidade,\n" +
+"e.sigla_estado\n" +
+"from \n" +
+"tb_cliente c \n" +
+"inner join tb_bairro b\n" +
+"on c.id_bairro = b.id_bairro\n" +
+"inner join tb_cidade cd\n" +
+"on cd.id_cidade = b.id_cidade\n" +
+"inner join tb_estado e\n" +
+"on e.id_estado = cd.id_estado\n" +
+";");
         connCidade.executaSQL("select * from TB_cidade order by nome_cidade");
         jComboBoxCidade.removeAllItems();
         try {
@@ -308,9 +325,12 @@ public class FrmCliente extends javax.swing.JFrame {
             do {
 
                 var obj = new Object[]{
-                    connex.rs.getInt("id_bairro"),
-                    connex.rs.getString("nome_bairro"),
-                    connex.rs.getString("nome_cidade")
+                    connex.rs.getInt("id_cliente"),
+                    connex.rs.getString("nome_Cliente"),
+                    connex.rs.getString("cpf_cliente"),
+                    connex.rs.getString("rg_cliente"),
+                    connex.rs.getString("nome_cidade"),
+                   connex.rs.getString("nome_bairro"),
                 };
                 dados.add(obj);
             } while (connex.rs.next());

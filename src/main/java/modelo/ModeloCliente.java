@@ -9,24 +9,28 @@ package modelo;
  * @author heito
  */
 public class ModeloCliente {
-    private int cod;
+
+    private int id;
     private String nome;
-    private int codCliente;
-    private int rg;
-    private int cpf;
+    private String endereco;
+    private String rg;
+    private String cpf;
+    private String Bairro;
+    private String Cidade;
+    private String telefone;
 
     /**
-     * @return the cod
+     * @return the id
      */
-    public int getCod() {
-        return cod;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param cod the cod to set
+     * @param id the id to set
      */
-    public void setCod(int cod) {
-        this.cod = cod;
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -44,47 +48,88 @@ public class ModeloCliente {
     }
 
     /**
-     * @return the codCliente
+     * @return the endereco
      */
-    public int getCodCliente() {
-        return codCliente;
+    public String getEndereco() {
+        return endereco;
     }
 
     /**
-     * @param codCliente the codCliente to set
+     * @param endereco the endereco to set
      */
-    public void setCodCliente(int codCliente) {
-        this.codCliente = codCliente;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     /**
      * @return the rg
      */
-    public int getRg() {
+    public String getRg() {
         return rg;
     }
 
     /**
      * @param rg the rg to set
      */
-    public void setRg(int rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 
     /**
      * @return the cpf
      */
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
     /**
      * @param cpf the cpf to set
      */
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
-    
 
+    /**
+     * @return the Bairro
+     */
+    public String getBairro() {
+        return Bairro;
+    }
+
+    /**
+     * @param Bairro the Bairro to set
+     */
+    public void setBairro(String Bairro) {
+        this.Bairro = Bairro;
+    }
+
+    /**
+     * @return the Cidade
+     */
+    public String getCidade() {
+        return Cidade;
+    }
+
+    /**
+     * @param Cidade the Cidade to set
+     */
+    public void setCidade(String Cidade) {
+        this.Cidade = Cidade;
+    }
+
+    /**
+     * @return the telefone
+     */
+    public String getTelefone() {
+        return telefone;
+    }
+
+    /**
+     * @param telefone the telefone to set
+     */
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 }
+
+    

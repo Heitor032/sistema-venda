@@ -15,17 +15,19 @@ import modelo.ModeloCliente;
  * @author heito
  */
 public class ControleCliente {
+
     ConectaBanco connex = new ConectaBanco();
+
     public void InserirCliente(ModeloCliente modCliente) {
         connex.conexao();
         try {
             PreparedStatement pst = connex.conn.prepareStatement("insert into TB_cliente(nome_cliente,id_cidade,endereco_cliente,rg_cliente,cpf_cliente,Id_bairro)values (?,?)");
             pst.setString(1, modCliente.getNome());
-            System.out.println(modCliente.getCodCliente());
-            pst.setInt(2, modCliente.getCodCliente());
-            pst.setInt(3,modCliente.getRg());
-            pst.setInt(4,modCliente.getCpf());
-                pst.executeUpdate();
+            System.out.println(modCliente.getId());
+            pst.setInt(2, modCliente.getId());
+            pst.setString(3, modCliente.getRg());
+            pst.setString(4, modCliente.getCpf());
+            pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "dados armazenados com sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "erro na inserção dos dados. /n ERRO:" + ex);
