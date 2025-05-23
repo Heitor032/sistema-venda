@@ -117,4 +117,8 @@ public class ControleTelefone {
         connex.desconecta();
         return modTel;
     }
+
+    public void executaSQL(String select__from_TB_cidade_order_by_nome_cida) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

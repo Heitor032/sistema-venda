@@ -6,6 +6,7 @@ package visao;
 
 import controle.ConectaBanco;
 import controle.ControleBairro;
+import controle.ControleTelefone;
 import modelo.ModeloTabela;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class FrmBairro extends javax.swing.JFrame {
     ConectaBanco connBairro = new ConectaBanco();
     ModeloBairro modBairro = new ModeloBairro();
     ControleBairro control = new ControleBairro();
-
     /**
      * Creates new form FrmBairro
      */
@@ -73,7 +73,7 @@ public class FrmBairro extends javax.swing.JFrame {
         jButtonAnterior = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tabela = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jTextFieldCod = new javax.swing.JTextField();
         jTextFieldNome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -81,7 +81,7 @@ public class FrmBairro extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastro de estado");
+        setTitle("Cadastro de Bairro");
 
         jComboBoxCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +175,7 @@ public class FrmBairro extends javax.swing.JFrame {
             }
         });
 
-        Tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -186,7 +186,7 @@ public class FrmBairro extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(Tabela);
+        jScrollPane1.setViewportView(tabela);
 
         jTextFieldCod.setEditable(false);
         jTextFieldCod.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -539,16 +539,16 @@ public class FrmBairro extends javax.swing.JFrame {
         }
 
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        Tabela.setModel(modelo);
-        Tabela.getColumnModel().getColumn(0).setPreferredWidth(80);
-        Tabela.getColumnModel().getColumn(0).setResizable(false);
-        Tabela.getColumnModel().getColumn(1).setPreferredWidth(310);
-        Tabela.getColumnModel().getColumn(1).setResizable(false);
-        Tabela.getColumnModel().getColumn(2).setPreferredWidth(150);
-        Tabela.getColumnModel().getColumn(2).setResizable(false);
-        Tabela.getTableHeader().setReorderingAllowed(false);
-        Tabela.setAutoResizeMode(Tabela.AUTO_RESIZE_OFF);
-        Tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabela.setModel(modelo);
+        tabela.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tabela.getColumnModel().getColumn(0).setResizable(false);
+        tabela.getColumnModel().getColumn(1).setPreferredWidth(310);
+        tabela.getColumnModel().getColumn(1).setResizable(false);
+        tabela.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tabela.getColumnModel().getColumn(2).setResizable(false);
+        tabela.getTableHeader().setReorderingAllowed(false);
+        tabela.setAutoResizeMode(tabela.AUTO_RESIZE_OFF);
+        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
@@ -587,7 +587,6 @@ public class FrmBairro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabela;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonCancelar;
@@ -608,6 +607,7 @@ public class FrmBairro extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JButton jbuttonAdicionar;
     private javax.swing.JButton jbuttonAlterar;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 
     private void inserirCidade() {
